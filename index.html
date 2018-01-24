@@ -43,8 +43,22 @@
     mappings: {
       actions: {
         common: {
-          triggerdown: 'cycle',
-          touchstart: 'cycle'
+          triggerdown: {left: 'cycle', right: 'cycle'}
+        },
+        'vive-controls': {
+          'grip.down': 'cycle',
+          'trackpad.down': 'cycle',
+          'trackpad.doubletouch': 'cycle',
+          'trackpad.doublepress': 'cycle',
+          // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
+          'trackpaddpadleftdown': 'cycle',
+          'trackpaddpadright.longpress': 'cycle'
+        },
+        'oculus-touch-controls': {
+          'abutton.down': 'cycle'
+        },
+        'windows-motion-controls': {
+          'grip.down': 'cycle'
         },
         keyboard: {
           'c_up': 'cycle',
@@ -73,6 +87,19 @@
       }
       document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
     }); 
+
+    var events = ['dpadleft', 'dpadrightlong', 'dpad', 'logtask1', 'logtask2', 'logdefault', 'righthand', 'lefthand', 'doubletouch', 'doublepress', 'longpress'];
+    for (var i = 0; i < events.length; i++) {
+      scene.addEventListener(events[i], function(event) { 
+        alert("test");
+        pictureIndex++;
+        if (pictureIndex > 4) {
+          pictureIndex = 1;
+        }
+        document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
+
+      });
+    }
   }
   </script>
 </html>
