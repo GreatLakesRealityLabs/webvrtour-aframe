@@ -15,10 +15,64 @@
     <meta name="mobile-web-app-capable" content="yes">
     <title>VR Tour Demo - KLA Office</title>
     <script src="./lib/aframe.min.js"></script>
+    <script src="./lib/aframe-input-mapping-component.min.js"></script>
   </head>
   <body>
     <a-scene>
       <a-sky src="./media/textures/kla_office_1.jpg"></a-sky>
     </a-scene>
+    <a-entity id="leftHand" oculus-touch-controls="hand: left"
+          gearvr-controls="hand: left"
+          daydream-controls="hand: left" vive-controls="hand: left">
+    </a-entity>
+    <a-entity id="rightHand" oculus-touch-controls="hand: right"
+        gearvr-controls="hand: right"
+        daydream-controls="hand: right"
+        vive-controls="hand: right">
+    </a-entity>
   </body>
+
+  <script>
+  var inputActions = {
+    actions: {
+      cycle: { label: 'Change Picture' }
+    }
+  };
+
+  var mappings = {
+    mappings: {
+      actions: {
+        common: {
+          triggerdown: 'cycle',
+          touchstart: 'cycle'
+        },
+        keyboard: {
+          'c_up': 'cycle',
+        }
+      }
+    }
+  };
+
+  var scene = document.querySelector('a-scene');
+  if (scene.hasLoaded) {
+    init();
+  } else {
+    scene.addEventListener('loaded', init);
+  }
+
+  var pictureIndex = 1;
+  function init()
+  {
+    AFRAME.registerInputActions(inputActions, 'actions');
+    AFRAME.registerInputMappings(mappings);  
+
+    scene.addEventListener('cycle', function(evt) {
+      pictureIndex++;
+      if (pictureIndex > 4) {
+        pictureIndex = 1;
+      }
+      document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
+    }); 
+  }
+  </script>
 </html>
