@@ -43,8 +43,22 @@
     mappings: {
       actions: {
         common: {
-          triggerdown: 'cycle',
-          touchstart: 'cycle'
+          triggerdown: {left: 'cycle', right: 'cycle'}
+        },
+        'vive-controls': {
+          'grip.down': 'cycle',
+          'trackpad.down': 'cycle',
+          'trackpad.doubletouch': 'cycle',
+          'trackpad.doublepress': 'cycle',
+          // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
+          'trackpaddpadleftdown': 'cycle',
+          'trackpaddpadright.longpress': 'cycle'
+        },
+        'oculus-touch-controls': {
+          'abutton.down': 'cycle'
+        },
+        'windows-motion-controls': {
+          'grip.down': 'cycle'
         },
         keyboard: {
           'c_up': 'cycle',
