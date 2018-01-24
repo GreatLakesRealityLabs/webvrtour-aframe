@@ -14,7 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="mobile-web-app-capable" content="yes">
     <title>VR Tour Demo - KLA Office</title>
-    <script src="./lib/aframe.min.js"></script>
+    <script src="https://aframe.io/releases/0.7.0/aframe.min.js"></script>
     <script src="./lib/aframe-input-mapping-component.min.js"></script>
   </head>
   <body>
@@ -43,8 +43,22 @@
     mappings: {
       actions: {
         common: {
-          triggerdown: 'cycle',
-          touchstart: 'cycle'
+          triggerdown: {left: 'cycle', right: 'cycle'}
+        },
+        'vive-controls': {
+          'grip.down': 'cycle',
+          'trackpad.down': 'cycle',
+          'trackpad.doubletouch': 'cycle',
+          'trackpad.doublepress': 'cycle',
+          // Activators for down, up, touchstart and touchend are optionals you can just write the event without the .
+          'trackpaddpadleftdown': 'cycle',
+          'trackpaddpadright.longpress': 'cycle'
+        },
+        'oculus-touch-controls': {
+          'abutton.down': 'cycle'
+        },
+        'windows-motion-controls': {
+          'grip.down': 'cycle'
         },
         keyboard: {
           'c_up': 'cycle',
@@ -73,6 +87,19 @@
       }
       document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
     }); 
+
+    var events = ['dpadleft', 'dpadrightlong', 'dpad', 'logtask1', 'logtask2', 'logdefault', 'righthand', 'lefthand', 'doubletouch', 'doublepress', 'longpress'];
+    for (var i = 0; i < events.length; i++) {
+      scene.addEventListener(events[i], function(event) { 
+        alert("test");
+        pictureIndex++;
+        if (pictureIndex > 4) {
+          pictureIndex = 1;
+        }
+        document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
+
+      });
+    }
   }
   </script>
 </html>
