@@ -87,6 +87,19 @@
       }
       document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
     }); 
+
+    var events = ['dpadleft', 'dpadrightlong', 'dpad', 'logtask1', 'logtask2', 'logdefault', 'righthand', 'lefthand', 'doubletouch', 'doublepress', 'longpress'];
+    for (var i = 0; i < events.length; i++) {
+      scene.addEventListener(events[i], function(event) { 
+        alert("test");
+        pictureIndex++;
+        if (pictureIndex > 4) {
+          pictureIndex = 1;
+        }
+        document.querySelector('a-sky').setAttribute('src', './media/textures/kla_office_' + pictureIndex + '.jpg');
+
+      });
+    }
   }
   </script>
 </html>
